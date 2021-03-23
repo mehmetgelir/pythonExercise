@@ -1,0 +1,23 @@
+import geopandas as gpd
+import matplotlib.pyplot as plt
+
+
+fp = "DAMSELFISH_distributions.shp"
+data = gpd.read_file(fp)
+data.plot()
+
+#out = "Mehmet.shp"
+selection = data[0:50]
+selection.plot()
+#selection.to_file(out)
+
+for index, row in selection.iterrows():
+    poly_area = row['geometry'].area
+    print("Polygon area at index {0} is: {1:.3f}".format(index, poly_area))
+    
+    
+data['area'] = data.area
+max_area = data['area'].max()
+mean_area = data['area'].mean()
+print("Max area: %s\nMin area: %s" % (round(max_area, 2), round(mean_area, 2)))
+   
